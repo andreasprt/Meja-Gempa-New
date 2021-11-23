@@ -1,0 +1,10 @@
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\bin\Debug\Meja Gempa.exe.config
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\bin\Debug\Meja Gempa.exe
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\bin\Debug\Meja Gempa.pdb
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja Gempa.csproj.AssemblyReference.cache
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja_Gempa.Form1.resources
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja_Gempa.Properties.Resources.resources
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja Gempa.csproj.GenerateResource.cache
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja Gempa.csproj.CoreCompileInputs.cache
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja Gempa.exe
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja Gempa.pdb
