@@ -23,8 +23,20 @@ namespace Meja_Gempa
         {
             string[] port = SerialPort.GetPortNames();
             comboBoxPort.Items.AddRange(port);
-        }
+            ena(false);
 
+        }
+        private void  ena (bool status)
+        {
+            btnClose.Enabled = status;
+            btnOpenFile.Enabled = status;
+            btnKirim.Enabled = status;
+            btnMaju.Enabled = status;
+            btnMundur.Enabled = status;
+            btnKanan.Enabled = status;
+            btnKiri.Enabled = status;
+
+        }
         private void btnOpen_Click(object sender, EventArgs e)
         {
             try
@@ -35,6 +47,7 @@ namespace Meja_Gempa
 
                 serialPort1.Open();
                 progressBar1.Value = 100;
+                ena(true);
             }
 
             catch (Exception er)
@@ -51,23 +64,23 @@ namespace Meja_Gempa
             {
                 serialPort1.Close();
                 progressBar1.Value = 0;
+                ena(false);
             }
         }
 
         private void btnKirim_Click(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen)
-            {
-                datakirim = textBox1.Text;
-                serialPort1.Write(datakirim);
-            }
+           
+            datakirim = textBox1.Text;
+            Kirim();
+            
         }
 
         private void btnKirimTXT_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
 
-            //string text = System.IO.File.ReadAllText(@"E:\Meja Gempa New\Meja Gempa\Test.txt");
+            
             if ( ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string text = System.IO.File.ReadAllText(ofd.FileName);
@@ -75,11 +88,37 @@ namespace Meja_Gempa
                 textBox2.Text = ofd.SafeFileName;
 
             }
-            
+        }
+        private void Kirim()
+        {
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Write(datakirim);
+            }
+            else
+            {
+                MessageBox.Show("Sambungkan Port");
+            }
+        }
 
-            // Display the file contents to the console. Variable text is a string.
-            //System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
-            
+        private void btnMaju_Click(object sender, EventArgs e)
+        {
+            datakirim = ("{w,1000}");
+        }
+
+        private void btnMundur_Click(object sender, EventArgs e)
+        {
+            datakirim = ("{s,1000}");
+        }
+
+        private void btnKanan_Click(object sender, EventArgs e)
+        {
+            datakirim = ("{d,1000}");
+        }
+
+        private void btnKiri_Click(object sender, EventArgs e)
+        {
+            datakirim = ("{a,1000}");
         }
     }
 }

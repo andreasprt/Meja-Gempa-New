@@ -40,8 +40,12 @@ namespace Meja_Gempa
             this.btnKirim = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.btnKirimTXT = new System.Windows.Forms.Button();
+            this.btnOpenFile = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnMaju = new System.Windows.Forms.Button();
+            this.btnKanan = new System.Windows.Forms.Button();
+            this.btnMundur = new System.Windows.Forms.Button();
+            this.btnKiri = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -127,15 +131,15 @@ namespace Meja_Gempa
             this.progressBar1.Size = new System.Drawing.Size(173, 23);
             this.progressBar1.TabIndex = 8;
             // 
-            // btnKirimTXT
+            // btnOpenFile
             // 
-            this.btnKirimTXT.Location = new System.Drawing.Point(23, 136);
-            this.btnKirimTXT.Name = "btnKirimTXT";
-            this.btnKirimTXT.Size = new System.Drawing.Size(75, 23);
-            this.btnKirimTXT.TabIndex = 9;
-            this.btnKirimTXT.Text = "Open File";
-            this.btnKirimTXT.UseVisualStyleBackColor = true;
-            this.btnKirimTXT.Click += new System.EventHandler(this.btnKirimTXT_Click);
+            this.btnOpenFile.Location = new System.Drawing.Point(23, 136);
+            this.btnOpenFile.Name = "btnOpenFile";
+            this.btnOpenFile.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenFile.TabIndex = 9;
+            this.btnOpenFile.Text = "Open File";
+            this.btnOpenFile.UseVisualStyleBackColor = true;
+            this.btnOpenFile.Click += new System.EventHandler(this.btnKirimTXT_Click);
             // 
             // textBox2
             // 
@@ -144,13 +148,57 @@ namespace Meja_Gempa
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 10;
             // 
+            // btnMaju
+            // 
+            this.btnMaju.Location = new System.Drawing.Point(137, 216);
+            this.btnMaju.Name = "btnMaju";
+            this.btnMaju.Size = new System.Drawing.Size(67, 60);
+            this.btnMaju.TabIndex = 11;
+            this.btnMaju.Text = "Maju";
+            this.btnMaju.UseVisualStyleBackColor = true;
+            this.btnMaju.Click += new System.EventHandler(this.btnMaju_Click);
+            // 
+            // btnKanan
+            // 
+            this.btnKanan.Location = new System.Drawing.Point(220, 292);
+            this.btnKanan.Name = "btnKanan";
+            this.btnKanan.Size = new System.Drawing.Size(67, 60);
+            this.btnKanan.TabIndex = 12;
+            this.btnKanan.Text = "Kanan";
+            this.btnKanan.UseVisualStyleBackColor = true;
+            this.btnKanan.Click += new System.EventHandler(this.btnKanan_Click);
+            // 
+            // btnMundur
+            // 
+            this.btnMundur.Location = new System.Drawing.Point(137, 366);
+            this.btnMundur.Name = "btnMundur";
+            this.btnMundur.Size = new System.Drawing.Size(67, 60);
+            this.btnMundur.TabIndex = 13;
+            this.btnMundur.Text = "Mundur";
+            this.btnMundur.UseVisualStyleBackColor = true;
+            this.btnMundur.Click += new System.EventHandler(this.btnMundur_Click);
+            // 
+            // btnKiri
+            // 
+            this.btnKiri.Location = new System.Drawing.Point(56, 292);
+            this.btnKiri.Name = "btnKiri";
+            this.btnKiri.Size = new System.Drawing.Size(67, 60);
+            this.btnKiri.TabIndex = 14;
+            this.btnKiri.Text = "Kiri";
+            this.btnKiri.UseVisualStyleBackColor = true;
+            this.btnKiri.Click += new System.EventHandler(this.btnKiri_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(373, 450);
+            this.Controls.Add(this.btnKiri);
+            this.Controls.Add(this.btnMundur);
+            this.Controls.Add(this.btnKanan);
+            this.Controls.Add(this.btnMaju);
             this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.btnKirimTXT);
+            this.Controls.Add(this.btnOpenFile);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnKirim);
             this.Controls.Add(this.textBox1);
@@ -180,8 +228,12 @@ namespace Meja_Gempa
         private System.Windows.Forms.Button btnKirim;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Button btnKirimTXT;
+        private System.Windows.Forms.Button btnOpenFile;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnMaju;
+        private System.Windows.Forms.Button btnKanan;
+        private System.Windows.Forms.Button btnMundur;
+        private System.Windows.Forms.Button btnKiri;
     }
 }
 
