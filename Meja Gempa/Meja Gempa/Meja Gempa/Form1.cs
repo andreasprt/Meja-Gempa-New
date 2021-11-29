@@ -71,8 +71,9 @@ namespace Meja_Gempa
         private void btnKirim_Click(object sender, EventArgs e)
         {
            
-            datakirim = textBox1.Text;
+            datakirim = "{x" + textBox1.Text;
             Kirim();
+            textBox1.Text = "";
             
         }
 
@@ -94,6 +95,7 @@ namespace Meja_Gempa
             if (serialPort1.IsOpen)
             {
                 serialPort1.Write(datakirim);
+                serialPort1.Write("\n");
             }
             else
             {
@@ -103,22 +105,26 @@ namespace Meja_Gempa
 
         private void btnMaju_Click(object sender, EventArgs e)
         {
-            datakirim = ("{w,1000}");
+            datakirim = ("{w,5000}");
+            Kirim();
         }
 
         private void btnMundur_Click(object sender, EventArgs e)
         {
-            datakirim = ("{s,1000}");
+            datakirim = ("{s,5000}");
+            Kirim();
         }
 
         private void btnKanan_Click(object sender, EventArgs e)
         {
-            datakirim = ("{d,1000}");
+            datakirim = ("{d,5000}");
+            Kirim();
         }
 
         private void btnKiri_Click(object sender, EventArgs e)
         {
-            datakirim = ("{a,1000}");
+            datakirim = ("{a,5000}");
+            Kirim();
         }
     }
 }

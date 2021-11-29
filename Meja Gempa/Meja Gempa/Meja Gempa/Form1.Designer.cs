@@ -108,7 +108,7 @@ namespace Meja_Gempa
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(220, 24);
+            this.textBox1.Location = new System.Drawing.Point(220, 51);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(141, 149);
@@ -116,7 +116,7 @@ namespace Meja_Gempa
             // 
             // btnKirim
             // 
-            this.btnKirim.Location = new System.Drawing.Point(230, 179);
+            this.btnKirim.Location = new System.Drawing.Point(231, 214);
             this.btnKirim.Name = "btnKirim";
             this.btnKirim.Size = new System.Drawing.Size(116, 23);
             this.btnKirim.TabIndex = 7;
@@ -143,14 +143,15 @@ namespace Meja_Gempa
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(104, 136);
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(220, 27);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.Size = new System.Drawing.Size(141, 20);
             this.textBox2.TabIndex = 10;
             // 
             // btnMaju
             // 
-            this.btnMaju.Location = new System.Drawing.Point(137, 216);
+            this.btnMaju.Location = new System.Drawing.Point(137, 241);
             this.btnMaju.Name = "btnMaju";
             this.btnMaju.Size = new System.Drawing.Size(67, 60);
             this.btnMaju.TabIndex = 11;
@@ -160,7 +161,7 @@ namespace Meja_Gempa
             // 
             // btnKanan
             // 
-            this.btnKanan.Location = new System.Drawing.Point(220, 292);
+            this.btnKanan.Location = new System.Drawing.Point(220, 317);
             this.btnKanan.Name = "btnKanan";
             this.btnKanan.Size = new System.Drawing.Size(67, 60);
             this.btnKanan.TabIndex = 12;
@@ -170,7 +171,7 @@ namespace Meja_Gempa
             // 
             // btnMundur
             // 
-            this.btnMundur.Location = new System.Drawing.Point(137, 366);
+            this.btnMundur.Location = new System.Drawing.Point(137, 391);
             this.btnMundur.Name = "btnMundur";
             this.btnMundur.Size = new System.Drawing.Size(67, 60);
             this.btnMundur.TabIndex = 13;
@@ -180,7 +181,7 @@ namespace Meja_Gempa
             // 
             // btnKiri
             // 
-            this.btnKiri.Location = new System.Drawing.Point(56, 292);
+            this.btnKiri.Location = new System.Drawing.Point(56, 317);
             this.btnKiri.Name = "btnKiri";
             this.btnKiri.Size = new System.Drawing.Size(67, 60);
             this.btnKiri.TabIndex = 14;

@@ -40,18 +40,22 @@ void setup()
 void perintah() {
 
   if (masukan == "a") {
+    l = dt[2].toInt();
     motor_1.setTargetRel(l);
     controller.move(motor_1);
   }
   else if (masukan == "d") {
+    l = dt[2].toInt();
     motor_1.setTargetRel(-l);
     controller.move(motor_1);
   }
   else if (masukan == "w") {
+    l = dt[2].toInt();
     motor_2.setTargetRel(l);
     controller.move(motor_2);
   }
   else if (masukan == "s") {
+    l = dt[2].toInt();
     motor_2.setTargetRel(-l);
     controller.move(motor_2);
   }
