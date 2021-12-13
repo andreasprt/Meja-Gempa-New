@@ -46,6 +46,7 @@ namespace Meja_Gempa
             this.btnKanan = new System.Windows.Forms.Button();
             this.btnMundur = new System.Windows.Forms.Button();
             this.btnKiri = new System.Windows.Forms.Button();
+            this.btnPlay = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -189,11 +190,22 @@ namespace Meja_Gempa
             this.btnKiri.UseVisualStyleBackColor = true;
             this.btnKiri.Click += new System.EventHandler(this.btnKiri_Click);
             // 
+            // btnPlay
+            // 
+            this.btnPlay.Location = new System.Drawing.Point(231, 243);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(116, 23);
+            this.btnPlay.TabIndex = 15;
+            this.btnPlay.Text = "Play";
+            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(373, 450);
+            this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.btnKiri);
             this.Controls.Add(this.btnMundur);
             this.Controls.Add(this.btnKanan);
@@ -235,6 +247,7 @@ namespace Meja_Gempa
         private System.Windows.Forms.Button btnKanan;
         private System.Windows.Forms.Button btnMundur;
         private System.Windows.Forms.Button btnKiri;
+        private System.Windows.Forms.Button btnPlay;
     }
 }
 

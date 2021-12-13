@@ -14,6 +14,8 @@ namespace Meja_Gempa
     public partial class Form1 : Form
     {
         string datakirim;
+       // string[] dt ;
+
         public Form1()
         {
             InitializeComponent();
@@ -71,13 +73,64 @@ namespace Meja_Gempa
         private void btnKirim_Click(object sender, EventArgs e)
         {
            
-            datakirim = "{x" + textBox1.Text;
-            Kirim();
-            textBox1.Text = "";
+            datakirim = "{*," + textBox1.Text + ",#}";
+            parsingData();
+            //datakirim =  textBox1.Text;
+            // Kirim_hex();
+            //Kirim();
+           // textBox1.Text = "";
             
         }
 
-        private void btnKirimTXT_Click(object sender, EventArgs e)
+        private void parsingData()
+        {
+            int j = 0;
+            int countComa = 0;
+            Console.WriteLine(datakirim);
+            foreach (char c in datakirim)
+            {
+                if ( c == ',')
+                {
+                    countComa++;
+                    //Console.WriteLine(countComa);
+                }
+            }
+            Console.Write("jumlah comma = ");
+            Console.WriteLine(countComa);
+            countComa += 2;
+            string[] dt = new string[countComa];
+
+            foreach (char c in datakirim)
+            {
+                Console.WriteLine(j);
+                //pengecekan tiap karakter dengan karakter (#) dan (,)
+                if ((c == '{') || (c == ',' )||( c == '}'))
+                {
+
+                    //increment variabel j, digunakan untuk merubah index array penampung
+                    if (j< countComa-1)
+                    {
+                        j++;
+                        dt[j] = ""; //inisialisasi variabel array dt[j]
+                    }
+                   
+                }
+                else
+                {
+                    //proses tampung data saat pengecekan karakter selesai.
+                    //   dt[j] = dt[j] + dataIn[i];
+                   dt[j] += c;
+                }
+            }
+            for (int i =0;i < countComa; i++)
+            {
+                Console.WriteLine(dt[i]);
+                string dataTosend = "{" + dt[i] + "}";
+                serialPort1.WriteLine(dataTosend);
+            }
+        }
+
+            private void btnKirimTXT_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
 
@@ -94,13 +147,68 @@ namespace Meja_Gempa
         {
             if (serialPort1.IsOpen)
             {
+
+             
+               // byte[] myBytes = System.Text.Encoding.ASCII.GetBytes(datakirim);
+
+                //byte[] bytes = Encoding.Default.GetBytes(datakirim);
+                //serialPort1.Write(myBytes, 0, myBytes.Length);
+                //Console.WriteLine(myBytes.Length);
                 serialPort1.Write(datakirim);
+               // Console.WriteLine(datakirim.Length);
                 serialPort1.Write("\n");
             }
             else
             {
                 MessageBox.Show("Sambungkan Port");
             }
+        }
+
+        private void Kirim_hex()
+        {
+            string data;
+            int commacount = 0;
+            string[] dataPrepareTosend;
+            byte[] dataToSend;
+
+            //data = textBox1.Text;
+            data = datakirim;
+
+            foreach (char c in data)
+            {
+                if (c == ',')
+                {
+                    commacount++;
+                }
+            }
+            dataPrepareTosend = new string[commacount];
+
+            commacount = 0;
+
+            foreach(char c in data)
+            {
+                if (c != ',')
+                {
+                    dataPrepareTosend[commacount] += c;
+                }
+                else
+                {
+                    commacount++;
+                    if (commacount == dataPrepareTosend.GetLength(0))
+                    {
+                        break;
+                    }
+                }
+            }
+            dataToSend = new byte[dataPrepareTosend.Length];
+
+            for (int a =0; a< dataPrepareTosend.Length; a++)
+            {
+                dataToSend[a] = Convert.ToByte(dataPrepareTosend[a], 1);
+
+            }
+            
+            //serialPort1.Write(dataToSend, 0, dataToSend.Length);
         }
 
         private void btnMaju_Click(object sender, EventArgs e)
@@ -124,6 +232,12 @@ namespace Meja_Gempa
         private void btnKiri_Click(object sender, EventArgs e)
         {
             datakirim = ("{a,5000}");
+            Kirim();
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            datakirim = ("{x}");
             Kirim();
         }
     }

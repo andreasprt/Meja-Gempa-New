@@ -19,6 +19,9 @@ int dtTampungY[5000];
 String masukan = dt[1];
 
 int u , ubaru = 0;
+boolean tampung = false;
+
+int jumlahDataTampung = 0;
 
 void setup()
 {
@@ -77,10 +80,16 @@ void perintah() {
   }
   else if (dt[1] == "x") {
     Serial.println("x");
-    while (u <= 2001) {
-      if (u <= 2001) {
-        motor_1.setTargetRel(1 * dtTampungX[u]);
-        motor_2.setTargetRel(1 * 1);
+    //    for (int i = 0 ; i < 5000; i++) {
+    //      Serial.print("tampung data");
+    //      Serial.print(dtTampung[i]);
+    //      Serial.print("\n");
+    //    }
+    //    while (u <= 2001) {
+    while (u <= jumlahDataTampung) { //jumlahDataTampung
+      if (u <= jumlahDataTampung) {
+        motor_1.setTargetRel(1 * dtTampung[u]); //1 * dtTampung[u])
+        motor_2.setTargetRel(10);
         controller.move(motor_1, motor_2);
       }
       else {
@@ -102,7 +111,7 @@ void perintah() {
 void loop()
 {
 
-  if (Serial.available() > 0) {
+  while (Serial.available() > 0) {
     // data = Serial.read();
     char inChar = (char)Serial.read();
     dataIn += inChar;
@@ -117,21 +126,37 @@ void loop()
     dataIn = "";
   }
   perintah();
+  if (dt[1] == "*") {
+    Serial.print("Tampung True");
+    tampung = true;
+    dt[1] = "";
+    jumlahDataTampung = 0;
+  }
+  else if (dt[1] == "#" || jumlahDataTampung > 5000) {
+    tampung = false;
+    Serial.print("Tampung False");
+    for (int i = 0; i < jumlahDataTampung; i++) {
+      Serial.print("data Ke ");
+      Serial.print(i);
+      Serial.print(" = ");
+      Serial.println(dtTampung[i]);
+    }
+  }
+
+
   dt[1] = "";
+
 
 }
 void parsingData()
 {
   int j = 0;
-  String dtBuffer;
   //kirim data yang telah diterima sebelumnya
   Serial.print("data masuk : ");
   Serial.print(dataIn);
   Serial.print("\n");
   //inisialisasi variabel, (reset isi variabel)
   dt[j] = "";
-  dtBuffer = "";
-  int a = 0;
   //proses parsing data
   for (i = 0; i < dataIn.length(); i++)
   {
@@ -140,23 +165,17 @@ void parsingData()
     {
       //increment variabel j, digunakan untuk merubah index array penampung
       j++;
-      Serial.println(dtBuffer);
-      dtTampung[j] = dtBuffer.toInt();
-      dtBuffer = "";
-      Serial.println(dtBuffer);
-      if (a < 11) {
-        dt[j] = ""; //inisialisasi variabel array dt[j]
-      }
+      dt[j] = ""; //inisialisasi variabel array dt[j]
     }
     else
     {
       //proses tampung data saat pengecekan karakter selesai.
-      dtBuffer += dataIn[i];
-      if (a < 11) {
-        dt[j] = dt[j] + dataIn[i];
-      }
-      //
+      dt[j] = dt[j] + dataIn[i];
     }
+  }
+  if (tampung) {
+    dtTampung[jumlahDataTampung] = dt[1].toInt();
+    jumlahDataTampung++;
   }
   //kirim data hasil parsing
   if (dt[1] == "x") {
