@@ -20,6 +20,8 @@ String masukan = dt[1];
 
 int u , ubaru = 0;
 boolean tampung = false;
+boolean X = false;
+boolean Y = false;
 
 int jumlahDataTampung = 0;
 
@@ -135,14 +137,14 @@ void loop()
   else if (dt[1] == "#" || jumlahDataTampung > 5000) {
     tampung = false;
     Serial.print("Tampung False");
-    for (int i = 0; i < jumlahDataTampung; i++) {
-      Serial.print("data Ke ");
-      Serial.print(i);
-      Serial.print(" = ");
-      Serial.println(dtTampung[i]);
-    }
+    // cek  data masuk
+    //    for (int i = 0; i < jumlahDataTampung; i++) {
+    //      Serial.print("data Ke ");
+    //      Serial.print(i);
+    //      Serial.print(" = ");
+    //      Serial.println(dtTampung[i]);
+    //    }
   }
-
 
   dt[1] = "";
 
@@ -177,15 +179,5 @@ void parsingData()
     dtTampung[jumlahDataTampung] = dt[1].toInt();
     jumlahDataTampung++;
   }
-  //kirim data hasil parsing
-  if (dt[1] == "x") {
-    Serial.println("Tunggu menammpung data");
-    for (int i = 0 ; i < 5000; i++) {
-      //Serial.print("tampung data");
-      //Serial.print(dt[i].toInt());
-      //Serial.print("\n");
-      dtTampungX[i] = dtTampung[i];
-    }
-    Serial.println("Tampung data Selesai");
-  }
+
 }
