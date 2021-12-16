@@ -47,6 +47,17 @@ namespace Meja_Gempa
             this.btnMundur = new System.Windows.Forms.Button();
             this.btnKiri = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tB_Gain = new System.Windows.Forms.TextBox();
+            this.tB_MaxSpeed = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnSetMaxSpeed = new System.Windows.Forms.Button();
+            this.tB_Accel = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnSetAccel = new System.Windows.Forms.Button();
+            this.tB_Step = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.progressBar_Kirim = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // label1
@@ -85,6 +96,7 @@ namespace Meja_Gempa
             this.comboBoxPort.Name = "comboBoxPort";
             this.comboBoxPort.Size = new System.Drawing.Size(121, 21);
             this.comboBoxPort.TabIndex = 3;
+            this.comboBoxPort.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboBoxPort_MouseClick);
             // 
             // comboBoxBaudrate
             // 
@@ -109,7 +121,7 @@ namespace Meja_Gempa
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(220, 51);
+            this.textBox1.Location = new System.Drawing.Point(285, 51);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(141, 149);
@@ -117,9 +129,9 @@ namespace Meja_Gempa
             // 
             // btnKirim
             // 
-            this.btnKirim.Location = new System.Drawing.Point(231, 214);
+            this.btnKirim.Location = new System.Drawing.Point(350, 235);
             this.btnKirim.Name = "btnKirim";
-            this.btnKirim.Size = new System.Drawing.Size(116, 23);
+            this.btnKirim.Size = new System.Drawing.Size(76, 23);
             this.btnKirim.TabIndex = 7;
             this.btnKirim.Text = "Kirim";
             this.btnKirim.UseVisualStyleBackColor = true;
@@ -145,14 +157,14 @@ namespace Meja_Gempa
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(220, 27);
+            this.textBox2.Location = new System.Drawing.Point(285, 27);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(141, 20);
             this.textBox2.TabIndex = 10;
             // 
             // btnMaju
             // 
-            this.btnMaju.Location = new System.Drawing.Point(137, 241);
+            this.btnMaju.Location = new System.Drawing.Point(139, 263);
             this.btnMaju.Name = "btnMaju";
             this.btnMaju.Size = new System.Drawing.Size(67, 60);
             this.btnMaju.TabIndex = 11;
@@ -162,7 +174,7 @@ namespace Meja_Gempa
             // 
             // btnKanan
             // 
-            this.btnKanan.Location = new System.Drawing.Point(220, 317);
+            this.btnKanan.Location = new System.Drawing.Point(222, 339);
             this.btnKanan.Name = "btnKanan";
             this.btnKanan.Size = new System.Drawing.Size(67, 60);
             this.btnKanan.TabIndex = 12;
@@ -172,7 +184,7 @@ namespace Meja_Gempa
             // 
             // btnMundur
             // 
-            this.btnMundur.Location = new System.Drawing.Point(137, 391);
+            this.btnMundur.Location = new System.Drawing.Point(139, 413);
             this.btnMundur.Name = "btnMundur";
             this.btnMundur.Size = new System.Drawing.Size(67, 60);
             this.btnMundur.TabIndex = 13;
@@ -182,7 +194,7 @@ namespace Meja_Gempa
             // 
             // btnKiri
             // 
-            this.btnKiri.Location = new System.Drawing.Point(56, 317);
+            this.btnKiri.Location = new System.Drawing.Point(58, 339);
             this.btnKiri.Name = "btnKiri";
             this.btnKiri.Size = new System.Drawing.Size(67, 60);
             this.btnKiri.TabIndex = 14;
@@ -192,19 +204,125 @@ namespace Meja_Gempa
             // 
             // btnPlay
             // 
-            this.btnPlay.Location = new System.Drawing.Point(231, 243);
+            this.btnPlay.Location = new System.Drawing.Point(350, 264);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(116, 23);
+            this.btnPlay.Size = new System.Drawing.Size(76, 23);
             this.btnPlay.TabIndex = 15;
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = true;
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(251, 240);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Gain";
+            // 
+            // tB_Gain
+            // 
+            this.tB_Gain.Location = new System.Drawing.Point(294, 237);
+            this.tB_Gain.Name = "tB_Gain";
+            this.tB_Gain.Size = new System.Drawing.Size(50, 20);
+            this.tB_Gain.TabIndex = 17;
+            this.tB_Gain.Text = "1";
+            // 
+            // tB_MaxSpeed
+            // 
+            this.tB_MaxSpeed.Location = new System.Drawing.Point(75, 180);
+            this.tB_MaxSpeed.Name = "tB_MaxSpeed";
+            this.tB_MaxSpeed.Size = new System.Drawing.Size(88, 20);
+            this.tB_MaxSpeed.TabIndex = 20;
+            this.tB_MaxSpeed.Text = "40000";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(20, 183);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "MaxSpeed";
+            // 
+            // btnSetMaxSpeed
+            // 
+            this.btnSetMaxSpeed.Location = new System.Drawing.Point(169, 178);
+            this.btnSetMaxSpeed.Name = "btnSetMaxSpeed";
+            this.btnSetMaxSpeed.Size = new System.Drawing.Size(38, 23);
+            this.btnSetMaxSpeed.TabIndex = 18;
+            this.btnSetMaxSpeed.Text = "Set";
+            this.btnSetMaxSpeed.UseVisualStyleBackColor = true;
+            this.btnSetMaxSpeed.Click += new System.EventHandler(this.btnSetMaxSpeed_Click);
+            // 
+            // tB_Accel
+            // 
+            this.tB_Accel.Location = new System.Drawing.Point(75, 202);
+            this.tB_Accel.Name = "tB_Accel";
+            this.tB_Accel.Size = new System.Drawing.Size(88, 20);
+            this.tB_Accel.TabIndex = 23;
+            this.tB_Accel.Text = "1000000";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(20, 209);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(36, 13);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "Accell";
+            // 
+            // btnSetAccel
+            // 
+            this.btnSetAccel.Location = new System.Drawing.Point(169, 204);
+            this.btnSetAccel.Name = "btnSetAccel";
+            this.btnSetAccel.Size = new System.Drawing.Size(38, 23);
+            this.btnSetAccel.TabIndex = 21;
+            this.btnSetAccel.Text = "Set";
+            this.btnSetAccel.UseVisualStyleBackColor = true;
+            this.btnSetAccel.Click += new System.EventHandler(this.btnSetAccel_Click);
+            // 
+            // tB_Step
+            // 
+            this.tB_Step.Location = new System.Drawing.Point(75, 228);
+            this.tB_Step.Name = "tB_Step";
+            this.tB_Step.Size = new System.Drawing.Size(88, 20);
+            this.tB_Step.TabIndex = 25;
+            this.tB_Step.Text = "5000";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(20, 235);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "Step";
+            // 
+            // progressBar_Kirim
+            // 
+            this.progressBar_Kirim.Location = new System.Drawing.Point(285, 208);
+            this.progressBar_Kirim.Name = "progressBar_Kirim";
+            this.progressBar_Kirim.Size = new System.Drawing.Size(141, 23);
+            this.progressBar_Kirim.TabIndex = 26;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 450);
+            this.ClientSize = new System.Drawing.Size(438, 498);
+            this.Controls.Add(this.progressBar_Kirim);
+            this.Controls.Add(this.tB_Step);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.tB_Accel);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.btnSetAccel);
+            this.Controls.Add(this.tB_MaxSpeed);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnSetMaxSpeed);
+            this.Controls.Add(this.tB_Gain);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.btnKiri);
             this.Controls.Add(this.btnMundur);
@@ -248,6 +366,17 @@ namespace Meja_Gempa
         private System.Windows.Forms.Button btnMundur;
         private System.Windows.Forms.Button btnKiri;
         private System.Windows.Forms.Button btnPlay;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tB_Gain;
+        private System.Windows.Forms.TextBox tB_MaxSpeed;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnSetMaxSpeed;
+        private System.Windows.Forms.TextBox tB_Accel;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnSetAccel;
+        private System.Windows.Forms.TextBox tB_Step;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ProgressBar progressBar_Kirim;
     }
 }
 

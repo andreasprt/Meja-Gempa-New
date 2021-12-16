@@ -91,7 +91,7 @@ void perintah() {
     while (u <= jumlahDataTampung) { //jumlahDataTampung
       if (u <= jumlahDataTampung) {
         motor_1.setTargetRel(1 * dtTampung[u]); //1 * dtTampung[u])
-        motor_2.setTargetRel(10);
+        motor_2.setTargetRel(100);
         controller.move(motor_1, motor_2);
       }
       else {

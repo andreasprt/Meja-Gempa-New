@@ -14,7 +14,7 @@ namespace Meja_Gempa
     public partial class Form1 : Form
     {
         string datakirim;
-       // string[] dt ;
+    
 
         public Form1()
         {
@@ -37,12 +37,16 @@ namespace Meja_Gempa
             btnMundur.Enabled = status;
             btnKanan.Enabled = status;
             btnKiri.Enabled = status;
+            btnPlay.Enabled = status;
+            btnSetAccel.Enabled = status;
+            btnSetMaxSpeed.Enabled = status;
 
         }
         private void btnOpen_Click(object sender, EventArgs e)
         {
             try
             {
+                btnOpen.Enabled = false;
                 serialPort1.PortName = comboBoxPort.Text;
                 serialPort1.BaudRate = Convert.ToInt32(comboBoxBaudrate.Text);
 
@@ -62,13 +66,22 @@ namespace Meja_Gempa
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen)
+            try
             {
-                serialPort1.Close();
-                progressBar1.Value = 0;
-                ena(false);
+                btnOpen.Enabled = true;
+                if (serialPort1.IsOpen)
+                {
+                    serialPort1.Close();
+                    progressBar1.Value = 0;
+                    ena(false);
+                }
+
             }
-        }
+            catch (Exception er)
+            {
+                MessageBox.Show(er.Message);
+            }
+        } 
 
         private void btnKirim_Click(object sender, EventArgs e)
         {
@@ -86,7 +99,7 @@ namespace Meja_Gempa
         {
             int j = 0;
             int countComa = 0;
-            Console.WriteLine(datakirim);
+            //Console.WriteLine(datakirim);
             foreach (char c in datakirim)
             {
                 if ( c == ',')
@@ -95,14 +108,14 @@ namespace Meja_Gempa
                     //Console.WriteLine(countComa);
                 }
             }
-            Console.Write("jumlah comma = ");
-            Console.WriteLine(countComa);
+            //Console.Write("jumlah comma = ");
+            //Console.WriteLine(countComa);
             countComa += 2;
             string[] dt = new string[countComa];
 
             foreach (char c in datakirim)
             {
-                Console.WriteLine(j);
+                //Console.WriteLine(j);
                 //pengecekan tiap karakter dengan karakter (#) dan (,)
                 if ((c == '{') || (c == ',' )||( c == '}'))
                 {
@@ -124,9 +137,30 @@ namespace Meja_Gempa
             }
             for (int i =0;i < countComa; i++)
             {
-                Console.WriteLine(dt[i]);
-                string dataTosend = "{" + dt[i] + "}";
-                serialPort1.WriteLine(dataTosend);
+                //Console.Write("nilai I =");
+                //Console.WriteLine(i);
+                //Console.Write("nilai countcoma =");
+                //Console.WriteLine(countComa);
+                
+                int value = ((i+1) * 100 / (countComa) );
+                progressBar_Kirim.Value = value;
+                //Console.WriteLine(value);
+               // Console.WriteLine(dt[i]);
+                Double Gain = Convert.ToDouble(tB_Gain.Text);
+                if (Gain == 0) Gain = 1;
+                string dataTosend;
+                if (i>1 && i < countComa - 3)
+                {
+                    Double nilai = Convert.ToDouble(dt[i]);
+                    nilai = nilai * Gain;
+                    dataTosend = "{" + Convert.ToString(nilai) + "}";
+                    serialPort1.WriteLine(dataTosend);
+                }
+                else
+                {
+                    dataTosend = "{" + dt[i] + "}";
+                    serialPort1.WriteLine(dataTosend);
+                }
             }
         }
 
@@ -148,14 +182,7 @@ namespace Meja_Gempa
             if (serialPort1.IsOpen)
             {
 
-             
-               // byte[] myBytes = System.Text.Encoding.ASCII.GetBytes(datakirim);
-
-                //byte[] bytes = Encoding.Default.GetBytes(datakirim);
-                //serialPort1.Write(myBytes, 0, myBytes.Length);
-                //Console.WriteLine(myBytes.Length);
                 serialPort1.Write(datakirim);
-               // Console.WriteLine(datakirim.Length);
                 serialPort1.Write("\n");
             }
             else
@@ -213,31 +240,59 @@ namespace Meja_Gempa
 
         private void btnMaju_Click(object sender, EventArgs e)
         {
-            datakirim = ("{w,5000}");
+            
+            datakirim = ("{w,"+tB_Step.Text+"}");
             Kirim();
         }
 
         private void btnMundur_Click(object sender, EventArgs e)
         {
-            datakirim = ("{s,5000}");
+            datakirim = ("{s," + tB_Step.Text + "}");
             Kirim();
         }
 
         private void btnKanan_Click(object sender, EventArgs e)
         {
-            datakirim = ("{d,5000}");
+            datakirim = ("{d," + tB_Step.Text + "}");
             Kirim();
         }
 
         private void btnKiri_Click(object sender, EventArgs e)
         {
-            datakirim = ("{a,5000}");
+            datakirim = ("{a," + tB_Step.Text + "}");
             Kirim();
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
             datakirim = ("{x}");
+            Kirim();
+        }
+
+        private void comboBoxPort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] port = SerialPort.GetPortNames();
+            comboBoxPort.Items.AddRange(port);
+            ena(false);
+        }
+
+        private void comboBoxPort_MouseClick(object sender, MouseEventArgs e)
+        {
+            string[] port = SerialPort.GetPortNames();
+            comboBoxPort.Items.Clear();
+            comboBoxPort.Items.AddRange(port);
+           // ena(false);
+        }
+
+        private void btnSetMaxSpeed_Click(object sender, EventArgs e)
+        {
+            datakirim = "{m," + tB_MaxSpeed.Text + "}";
+            Kirim();
+        }
+
+        private void btnSetAccel_Click(object sender, EventArgs e)
+        {
+            datakirim = "{n," + tB_Accel.Text + "}";
             Kirim();
         }
     }
