@@ -2,85 +2,116 @@
 
 int LED = 13;
 
-Stepper motor_1(20, 21);   //STEP pin =  4, DIR pin = 5
-Stepper motor_2(16, 17);  //STEP pin =  2, DIR pin = 3
+Stepper motor_1(23, 22);   //STEP pin =  4, DIR pin = 5
+Stepper motor_2(17, 16);  //STEP pin =  2, DIR pin = 3
 
 StepControl controller;
 StepControl controller2;
-char data;
-int in1, in2, in3;
-int l = 5000;
-
-
 String dataIn;
-String dt[5000];
-int i;
+String dt[10];
+unsigned int i;
 boolean parsing = false;
 int dtTampung[5000];
+int dtTampungX[5000];
+int dtTampungY[5000];
 String masukan = dt[1];
+
+int u , ubaru = 0;
+boolean tampung = false;
+boolean X = false;
+boolean Y = false;
+
+int jumlahDataTampung = 0;
 
 void setup()
 {
-  // pinMode(LED, OUTPUT);
-  pinMode(1, INPUT);
-  pinMode(2, INPUT);
-  pinMode(3, INPUT);
 
   Serial.begin(9600);
   dataIn = "";
   // setup the motors
   motor_1
-  .setMaxSpeed(45670)       // steps/s
+  .setMaxSpeed(40000)       // steps/s
   .setAcceleration(1000000); // steps/s^2
   motor_2
-  .setMaxSpeed(45670)       // steps/s
+  .setMaxSpeed(40000)       // steps/s
   .setAcceleration(1000000); // steps/s^2
+
+  motor_2.setTargetRel(1000);
+  controller.move(motor_2);
 }
 
 void perintah() {
 
-  if (masukan == "a") {
-    l = dt[2].toInt();
-    motor_1.setTargetRel(l);
+  if (dt[1] == "a") {
+    Serial.println("kiri");
+    motor_1.setTargetRel(dt[2].toInt());
     controller.move(motor_1);
   }
-  else if (masukan == "d") {
-    l = dt[2].toInt();
-    motor_1.setTargetRel(-l);
+  else if (dt[1] == "d") {
+    Serial.println("kanan");
+    motor_1.setTargetRel(-dt[2].toInt());
     controller.move(motor_1);
   }
-  else if (masukan == "w") {
-    l = dt[2].toInt();
-    motor_2.setTargetRel(l);
+  else if (dt[1] == "w") {
+    Serial.println("atas");
+    motor_2.setTargetRel(dt[2].toInt());
+    controller.move(motor_2); //Sinkron
+  }
+  else if (dt[1] == "s") {
+    Serial.println("bawah");
+    motor_2.setTargetRel(-dt[2].toInt());
     controller.move(motor_2);
   }
-  else if (masukan == "s") {
-    l = dt[2].toInt();
-    motor_2.setTargetRel(-l);
-    controller.move(motor_2);
+  else if (dt[1] == "p") {
+    for (int i = 0 ; i < 5000; i++) {
+      Serial.print("tampung data");
+      Serial.print(dtTampungX[i]);
+      Serial.print("\n");
+    }
   }
-  else if (masukan == "l") {
-    l = dt[2].toInt();
-  }
-  else if (masukan == "m") {
-    int speedMotor = dt[2].toInt();
-    motor_1.setMaxSpeed(speedMotor) ;      // steps/s
-    motor_2.setMaxSpeed(speedMotor);       // steps/s
-  }
-  else if (masukan == "n") {
-    int accMotor = dt[2].toInt();
-    motor_1.setAcceleration(accMotor);       // steps/s/s
-    motor_2.setAcceleration(accMotor);      // steps/s/s
 
+  else if (dt[1] == "m") {
+    motor_1.setMaxSpeed(dt[2].toInt()) ;      // steps/s
+    motor_2.setMaxSpeed(dt[2].toInt());       // steps/s
+  }
+  else if (dt[1] == "n") {
+    motor_1.setAcceleration(dt[2].toInt());       // steps/s/s
+    motor_2.setAcceleration(dt[2].toInt());      // steps/s/s
+  }
+  else if (dt[1] == "x") {
+    Serial.println("x");
+    //    for (int i = 0 ; i < 5000; i++) {
+    //      Serial.print("tampung data");
+    //      Serial.print(dtTampung[i]);
+    //      Serial.print("\n");
+    //    }
+   
+    while (u <= jumlahDataTampung) { //jumlahDataTampung
+      if (u <= jumlahDataTampung) {
+        motor_1.setTargetRel(1 * dtTampung[u]); //1 * dtTampung[u])
+        motor_2.setTargetRel(10);
+        controller.move(motor_1, motor_2);
+      }
+      else {
+        controller.stop();
+
+      }
+      if (u - ubaru == 100) {
+        Serial.println(u);
+        ubaru = u;
+      }
+      u++;
+    }
+    u = ubaru = 0;
+    Serial.println("data Complit");
   }
 }
 
+
 void loop()
 {
-  in1 = digitalRead(1);
-  in2 = digitalRead(2);
-  in3 = digitalRead(3);
-  if (Serial.available() > 0) {
+
+  while (Serial.available() > 0) {
     // data = Serial.read();
     char inChar = (char)Serial.read();
     dataIn += inChar;
@@ -95,20 +126,25 @@ void loop()
     dataIn = "";
   }
   perintah();
-  masukan = "";
-  if (in1 == 0)
-  {
-    motor_1.setTargetRel(5000);
-    motor_2.setTargetRel(-5000);
-    controller.move(motor_1, motor_2);
+  if (dt[1] == "*") {
+    Serial.print("Tampung True");
+    tampung = true;
+    dt[1] = "";
+    jumlahDataTampung = 0;
+  }
+  else if (dt[1] == "#" || jumlahDataTampung > 5000) {
+    tampung = false;
+    Serial.print("Tampung False");
+    // cek  data masuk
+    //    for (int i = 0; i < jumlahDataTampung; i++) {
+    //      Serial.print("data Ke ");
+    //      Serial.print(i);
+    //      Serial.print(" = ");
+    //      Serial.println(dtTampung[i]);
+    //    }
   }
 
-  if (in2 == 0)
-  {
-    motor_1.setTargetRel(-5000);
-    motor_2.setTargetRel(5000);
-    controller.move(motor_1, motor_2);
-  }
+  dt[1] = "";
 
 
 }
@@ -137,13 +173,25 @@ void parsingData()
       dt[j] = dt[j] + dataIn[i];
     }
   }
-  //kirim data hasil parsing
-  if (dt[1] == "x") {
-    for (int i = 2 ; i < 5001; i++) {
-      //Serial.print("tampung data");
-      //Serial.print(dt[i].toInt());
-      //Serial.print("\n");
-      dtTampung[i] = dt[i].toInt();
+  if (tampung) {
+
+    dtTampung[jumlahDataTampung] = dt[1].toInt();
+    jumlahDataTampung++;
+    if (dt[1] = "x") {
+      X = true;
+    }
+    if (dt[1] = "y") {
+      Y = true;
+    }
+    if (X) {
+      dtTampungX[jumlahDataTampung] = dt[1].toInt();
+      jumlahDataTampung++;
+    }
+    if (Y) {
+      dtTampungY
+      [jumlahDataTampung] = dt[1].toInt();
+      jumlahDataTampung++;
     }
   }
+
 }

@@ -8,3 +8,6 @@ E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja Gempa.csproj.G
 E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja Gempa.csproj.CoreCompileInputs.cache
 E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja Gempa.exe
 E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja Gempa.pdb
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\bin\Debug\MathNet.Numerics.dll
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\bin\Debug\MathNet.Numerics.xml
+E:\Meja Gempa New\Meja Gempa\Meja Gempa\Meja Gempa\obj\Debug\Meja Gempa.csproj.CopyComplete
