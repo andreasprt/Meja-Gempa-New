@@ -85,11 +85,11 @@ void perintah() {
     //      Serial.print(dtTampung[i]);
     //      Serial.print("\n");
     //    }
-   
+
     while (u <= jumlahDataTampung) { //jumlahDataTampung
       if (u <= jumlahDataTampung) {
-        motor_1.setTargetRel(10 * dtTampung[u]); //1 * dtTampung[u])
-        motor_2.setTargetRel(10);
+        motor_1.setTargetRel(10 * dtTampungX[u]); //1 * dtTampung[u])
+        motor_2.setTargetRel(10 * dtTampungY[u]);
         controller.move(motor_1, motor_2);
       }
       else {
@@ -134,6 +134,8 @@ void loop()
   }
   else if (dt[1] == "#" || jumlahDataTampung > 5000) {
     tampung = false;
+    X = false;
+    Y = false;
     Serial.print("Tampung False");
     // cek  data masuk
     //    for (int i = 0; i < jumlahDataTampung; i++) {
@@ -188,8 +190,7 @@ void parsingData()
       jumlahDataTampung++;
     }
     if (Y) {
-      dtTampungY
-      [jumlahDataTampung] = dt[1].toInt();
+      dtTampungY[jumlahDataTampung] = dt[1].toInt();
       jumlahDataTampung++;
     }
   }

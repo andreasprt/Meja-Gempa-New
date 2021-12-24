@@ -32,7 +32,8 @@ namespace Meja_Gempa
         {
             btnClose.Enabled = status;
             btnOpenFile.Enabled = status;
-            btnKirim.Enabled = status;
+            btnKirimX.Enabled = status;
+            btnKirimY.Enabled = status;
             btnMaju.Enabled = status;
             btnMundur.Enabled = status;
             btnKanan.Enabled = status;
@@ -97,70 +98,83 @@ namespace Meja_Gempa
 
         private void parsingData()
         {
-            int j = 0;
-            int countComa = 0;
-            //Console.WriteLine(datakirim);
-            foreach (char c in datakirim)
+            try
             {
-                if ( c == ',')
+                int j = 0;
+                int countComa = 0;
+                //Console.WriteLine(datakirim);
+                foreach (char c in datakirim)
                 {
-                    countComa++;
-                    //Console.WriteLine(countComa);
-                }
-            }
-            //Console.Write("jumlah comma = ");
-            //Console.WriteLine(countComa);
-            countComa += 2;
-            string[] dt = new string[countComa];
-
-            foreach (char c in datakirim)
-            {
-                //Console.WriteLine(j);
-                //pengecekan tiap karakter dengan karakter (#) dan (,)
-                if ((c == '{') || (c == ',' )||( c == '}'))
-                {
-
-                    //increment variabel j, digunakan untuk merubah index array penampung
-                    if (j< countComa-1)
+                    if (c == ',')
                     {
-                        j++;
-                        dt[j] = ""; //inisialisasi variabel array dt[j]
+                        countComa++;
+                        //Console.WriteLine(countComa);
                     }
-                   
                 }
-                else
+                //Console.Write("jumlah comma = ");
+                //Console.WriteLine(countComa);
+                countComa += 2;
+                string[] dt = new string[countComa];
+
+                foreach (char c in datakirim)
                 {
-                    //proses tampung data saat pengecekan karakter selesai.
-                    //   dt[j] = dt[j] + dataIn[i];
-                   dt[j] += c;
+                    //Console.WriteLine(j);
+                    //pengecekan tiap karakter dengan karakter (#) dan (,)
+                    if ((c == '{') || (c == ',') || (c == '}'))
+                    {
+
+                        //increment variabel j, digunakan untuk merubah index array penampung
+                        if (j < countComa - 1)
+                        {
+                            j++;
+                            dt[j] = ""; //inisialisasi variabel array dt[j]
+                        }
+
+                    }
+                    else
+                    {
+                        //proses tampung data saat pengecekan karakter selesai.
+                        //   dt[j] = dt[j] + dataIn[i];
+                        dt[j] += c;
+                    }
+                }
+                for (int i = 0; i < countComa; i++)
+                {
+                    //Console.Write("nilai I =");
+                    //Console.WriteLine(i);
+                    //Console.Write("nilai countcoma =");
+                    //Console.WriteLine(countComa);
+
+                    int value = ((i + 1) * 100 / (countComa));
+                    progressBar_Kirim.Value = value;
+                    //Console.WriteLine(value);
+                    Console.WriteLine(dt[i]);
+                    Double Gain = Convert.ToDouble(tB_Gain.Text);
+                    if (Gain == 0) Gain = 1;
+                    string dataTosend;
+                    if (i > 2 && i < countComa - 3)
+                    {
+                        Double nilai = Convert.ToDouble(dt[i]);
+                        nilai = nilai * Gain;
+                        dataTosend = "{" + Convert.ToString(nilai) + "}";
+                        serialPort1.WriteLine(dataTosend);
+                    }
+                    else
+                    {
+                        if (dt[i] != " ")
+                        {
+                            dataTosend = "{" + dt[i] + "}";
+                            serialPort1.WriteLine(dataTosend);
+                        }
+
+                    }
                 }
             }
-            for (int i =0;i < countComa; i++)
+            catch(Exception er)
             {
-                //Console.Write("nilai I =");
-                //Console.WriteLine(i);
-                //Console.Write("nilai countcoma =");
-                //Console.WriteLine(countComa);
-                
-                int value = ((i+1) * 100 / (countComa) );
-                progressBar_Kirim.Value = value;
-                //Console.WriteLine(value);
-               // Console.WriteLine(dt[i]);
-                Double Gain = Convert.ToDouble(tB_Gain.Text);
-                if (Gain == 0) Gain = 1;
-                string dataTosend;
-                if (i>1 && i < countComa - 3)
-                {
-                    Double nilai = Convert.ToDouble(dt[i]);
-                    nilai = nilai * Gain;
-                    dataTosend = "{" + Convert.ToString(nilai) + "}";
-                    serialPort1.WriteLine(dataTosend);
-                }
-                else
-                {
-                    dataTosend = "{" + dt[i] + "}";
-                    serialPort1.WriteLine(dataTosend);
-                }
+                MessageBox.Show("Cek Data lagi \n" +
+                    "Pastikan data sesuai Format \n" +
+                    "data1,data2,data3,dst");
             }
         }
 
@@ -265,7 +279,7 @@ namespace Meja_Gempa
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            datakirim = ("{x}");
+            datakirim = ("{P}");
             Kirim();
         }
 
@@ -294,6 +308,23 @@ namespace Meja_Gempa
         {
             datakirim = "{n," + tB_Accel.Text + "}";
             Kirim();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnKirimX_Click(object sender, EventArgs e)
+        {
+            datakirim = "{*," + "x," + textBox1.Text + ",#}";
+            parsingData();
+        }
+
+        private void btnKirimY_Click(object sender, EventArgs e)
+        {
+            datakirim = "{*," + "y," + textBox1.Text + ",#}";
+            parsingData();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Meja_Gempa
             this.comboBoxBaudrate = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnKirim = new System.Windows.Forms.Button();
+            this.btnKirimX = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnOpenFile = new System.Windows.Forms.Button();
@@ -58,6 +58,7 @@ namespace Meja_Gempa
             this.tB_Step = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.progressBar_Kirim = new System.Windows.Forms.ProgressBar();
+            this.btnKirimY = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -127,15 +128,15 @@ namespace Meja_Gempa
             this.textBox1.Size = new System.Drawing.Size(141, 149);
             this.textBox1.TabIndex = 6;
             // 
-            // btnKirim
+            // btnKirimX
             // 
-            this.btnKirim.Location = new System.Drawing.Point(350, 235);
-            this.btnKirim.Name = "btnKirim";
-            this.btnKirim.Size = new System.Drawing.Size(76, 23);
-            this.btnKirim.TabIndex = 7;
-            this.btnKirim.Text = "Kirim";
-            this.btnKirim.UseVisualStyleBackColor = true;
-            this.btnKirim.Click += new System.EventHandler(this.btnKirim_Click);
+            this.btnKirimX.Location = new System.Drawing.Point(350, 235);
+            this.btnKirimX.Name = "btnKirimX";
+            this.btnKirimX.Size = new System.Drawing.Size(76, 23);
+            this.btnKirimX.TabIndex = 7;
+            this.btnKirimX.Text = "Kirim Data X";
+            this.btnKirimX.UseVisualStyleBackColor = true;
+            this.btnKirimX.Click += new System.EventHandler(this.btnKirimX_Click);
             // 
             // progressBar1
             // 
@@ -204,7 +205,7 @@ namespace Meja_Gempa
             // 
             // btnPlay
             // 
-            this.btnPlay.Location = new System.Drawing.Point(350, 264);
+            this.btnPlay.Location = new System.Drawing.Point(350, 300);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(76, 23);
             this.btnPlay.TabIndex = 15;
@@ -215,15 +216,16 @@ namespace Meja_Gempa
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(251, 240);
+            this.label3.Location = new System.Drawing.Point(250, 257);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 16;
             this.label3.Text = "Gain";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // tB_Gain
             // 
-            this.tB_Gain.Location = new System.Drawing.Point(294, 237);
+            this.tB_Gain.Location = new System.Drawing.Point(285, 250);
             this.tB_Gain.Name = "tB_Gain";
             this.tB_Gain.Size = new System.Drawing.Size(50, 20);
             this.tB_Gain.TabIndex = 17;
@@ -307,11 +309,22 @@ namespace Meja_Gempa
             this.progressBar_Kirim.Size = new System.Drawing.Size(141, 23);
             this.progressBar_Kirim.TabIndex = 26;
             // 
+            // btnKirimY
+            // 
+            this.btnKirimY.Location = new System.Drawing.Point(350, 264);
+            this.btnKirimY.Name = "btnKirimY";
+            this.btnKirimY.Size = new System.Drawing.Size(76, 23);
+            this.btnKirimY.TabIndex = 27;
+            this.btnKirimY.Text = "Kirim Data Y";
+            this.btnKirimY.UseVisualStyleBackColor = true;
+            this.btnKirimY.Click += new System.EventHandler(this.btnKirimY_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(438, 498);
+            this.Controls.Add(this.btnKirimY);
             this.Controls.Add(this.progressBar_Kirim);
             this.Controls.Add(this.tB_Step);
             this.Controls.Add(this.label6);
@@ -331,7 +344,7 @@ namespace Meja_Gempa
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.btnOpenFile);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.btnKirim);
+            this.Controls.Add(this.btnKirimX);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.comboBoxBaudrate);
             this.Controls.Add(this.label2);
@@ -356,7 +369,7 @@ namespace Meja_Gempa
         private System.Windows.Forms.ComboBox comboBoxBaudrate;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btnKirim;
+        private System.Windows.Forms.Button btnKirimX;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button btnOpenFile;
@@ -377,6 +390,7 @@ namespace Meja_Gempa
         private System.Windows.Forms.TextBox tB_Step;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ProgressBar progressBar_Kirim;
+        private System.Windows.Forms.Button btnKirimY;
     }
 }
 
